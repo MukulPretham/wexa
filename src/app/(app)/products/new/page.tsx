@@ -13,14 +13,14 @@ export default function NewProductPage() {
       <div className="max-w-2xl">
         <Link
           href="/products"
-          className="text-sm text-zinc-500 hover:text-zinc-900"
+          className="text-sm text-zinc-400 hover:text-zinc-100"
         >
           ← Back to products
         </Link>
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mt-4 text-2xl font-semibold tracking-tight text-zinc-50">
           Add product
         </h1>
-        <p className="mt-1 text-sm text-zinc-600">
+        <p className="mt-1 text-sm text-zinc-400">
           Create a product with its stock and pricing details.
         </p>
 

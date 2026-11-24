@@ -17,25 +17,14 @@ export function AppShell({
 }: AppShellProps) {
   return (
     <div className="flex min-h-screen flex-1 flex-col bg-zinc-950 lg:flex-row">
-      <header className="flex h-16 items-center justify-between gap-4 border-b border-zinc-800 bg-zinc-950 px-4 lg:hidden">
-        <Link
-          href="/dashboard"
-          className="text-sm font-semibold tracking-tight text-zinc-100"
-        >
-          StockFlow
-        </Link>
-        <div className="flex items-center gap-1">
-          <nav className="flex items-center gap-1">
-            <NavLink href="/dashboard" compact>
-              Dashboard
-            </NavLink>
-            <NavLink href="/products" compact>
-              Products
-            </NavLink>
-            <NavLink href="/settings" compact>
-              Settings
-            </NavLink>
-          </nav>
+      <header className="border-b border-zinc-800 bg-zinc-950 lg:hidden">
+        <div className="flex h-14 items-center justify-between px-4">
+          <Link
+            href="/dashboard"
+            className="text-sm font-semibold tracking-tight text-zinc-100"
+          >
+            StockFlow
+          </Link>
           <form action={logoutAction}>
             <Button
               type="submit"
@@ -47,6 +36,17 @@ export function AppShell({
             </Button>
           </form>
         </div>
+        <nav className="flex items-center gap-1 px-3 pb-3">
+          <NavLink href="/dashboard" compact>
+            Dashboard
+          </NavLink>
+          <NavLink href="/products" compact>
+            Products
+          </NavLink>
+          <NavLink href="/settings" compact>
+            Settings
+          </NavLink>
+        </nav>
       </header>
 
       <aside className="hidden w-64 shrink-0 flex-col border-r border-zinc-800 bg-zinc-950 lg:flex">

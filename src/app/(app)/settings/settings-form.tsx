@@ -53,7 +53,7 @@ export function SettingsForm({
           {pending ? "Saving..." : "Save settings"}
         </Button>
         {state?.success ? (
-          <p role="status" className="text-sm font-medium text-emerald-700">
+          <p role="status" className="text-sm font-medium text-emerald-400">
             Settings saved.
           </p>
         ) : null}

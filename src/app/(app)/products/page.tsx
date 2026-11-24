@@ -46,10 +46,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     <div className="px-6 py-8 lg:px-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+          <h1 className="text-2xl font-semibold tracking-tight text-zinc-50">
             Products
           </h1>
-          <p className="mt-1 text-sm text-zinc-600">
+          <p className="mt-1 text-sm text-zinc-400">
             {totalProducts === 0
               ? "No products yet."
               : `${totalProducts} product${totalProducts === 1 ? "" : "s"} in your catalog.`}
@@ -74,7 +74,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         {query ? (
           <Link
             href="/products"
-            className="inline-flex items-center px-2 text-sm text-zinc-500 hover:text-zinc-900"
+            className="inline-flex items-center px-2 text-sm text-zinc-500 hover:text-zinc-100"
           >
             Clear
           </Link>
@@ -82,8 +82,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       </form>
 
       {totalProducts === 0 ? (
-        <div className="mt-8 rounded-lg border border-dashed border-zinc-300 bg-white px-6 py-16 text-center">
-          <p className="text-sm font-medium text-zinc-900">No products yet</p>
+        <div className="mt-8 rounded-lg border border-dashed border-zinc-700 bg-zinc-900/40 px-6 py-16 text-center">
+          <p className="text-sm font-medium text-zinc-200">No products yet</p>
           <p className="mt-1 text-sm text-zinc-500">
             Products you add will show up here with their stock levels.
           </p>
@@ -95,8 +95,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           </Link>
         </div>
       ) : products.length === 0 ? (
-        <div className="mt-8 rounded-lg border border-dashed border-zinc-300 bg-white px-6 py-16 text-center">
-          <p className="text-sm font-medium text-zinc-900">
+        <div className="mt-8 rounded-lg border border-dashed border-zinc-700 bg-zinc-900/40 px-6 py-16 text-center">
+          <p className="text-sm font-medium text-zinc-200">
             No products match “{query}”
           </p>
           <p className="mt-1 text-sm text-zinc-500">
@@ -104,10 +104,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           </p>
         </div>
       ) : (
-        <div className="mt-6 overflow-hidden rounded-lg border border-zinc-200 bg-white">
+        <div className="mt-6 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/40">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500">
+            <table className="w-full min-w-[720px] text-left text-sm">
+              <thead className="border-b border-zinc-800 bg-zinc-900/70 text-xs uppercase tracking-wide text-zinc-500">
                 <tr>
                   <th className="px-4 py-3 font-medium">Name</th>
                   <th className="px-4 py-3 font-medium">SKU</th>
@@ -119,11 +119,11 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   <th className="px-4 py-3 text-right font-medium">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-100">
+              <tbody className="divide-y divide-zinc-800">
                 {products.map((product) => (
-                  <tr key={product.id} className="hover:bg-zinc-50">
+                  <tr key={product.id} className="hover:bg-zinc-900/70">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-zinc-900">
+                      <p className="font-medium text-zinc-100">
                         {product.name}
                       </p>
                       {product.description ? (
@@ -132,10 +132,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                         </p>
                       ) : null}
                     </td>
-                    <td className="px-4 py-3 font-mono text-xs text-zinc-600">
+                    <td className="px-4 py-3 font-mono text-xs text-zinc-400">
                       {product.sku}
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums text-zinc-900">
+                    <td className="px-4 py-3 text-right tabular-nums text-zinc-200">
                       {product.quantityOnHand}
                     </td>
                     <td className="px-4 py-3">
@@ -147,14 +147,14 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                         }
                       />
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums text-zinc-900">
+                    <td className="px-4 py-3 text-right tabular-nums text-zinc-200">
                       {formatCurrency(product.sellingPrice?.toString())}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-3">
                         <Link
                           href={`/products/${product.id}/edit`}
-                          className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+                          className="text-sm font-medium text-zinc-400 hover:text-zinc-100"
                         >
                           Edit
                         </Link>

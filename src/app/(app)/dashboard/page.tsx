@@ -40,10 +40,10 @@ export default async function DashboardPage() {
   return (
     <div className="px-6 py-8 lg:px-10">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-50">
           Dashboard
         </h1>
-        <p className="mt-1 text-sm text-zinc-600">
+        <p className="mt-1 text-sm text-zinc-400">
           Overview of {session.organization.name}.
         </p>
       </div>
@@ -69,24 +69,24 @@ export default async function DashboardPage() {
       <section className="mt-10">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="text-base font-semibold text-zinc-900">
+            <h2 className="text-base font-semibold text-zinc-100">
               Low stock items
             </h2>
-            <p className="mt-1 text-sm text-zinc-600">
+            <p className="mt-1 text-sm text-zinc-400">
               Products at or below their low-stock threshold.
             </p>
           </div>
           <Link
             href="/products"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+            className="text-sm font-medium text-zinc-400 hover:text-zinc-100"
           >
             View all products
           </Link>
         </div>
 
         {lowStockProducts.length === 0 ? (
-          <div className="mt-4 rounded-lg border border-dashed border-zinc-300 bg-white px-6 py-12 text-center">
-            <p className="text-sm font-medium text-zinc-900">
+          <div className="mt-4 rounded-lg border border-dashed border-zinc-700 bg-zinc-900/40 px-6 py-12 text-center">
+            <p className="text-sm font-medium text-zinc-200">
               Nothing needs restocking
             </p>
             <p className="mt-1 text-sm text-zinc-500">
@@ -94,10 +94,10 @@ export default async function DashboardPage() {
             </p>
           </div>
         ) : (
-          <div className="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-white">
+          <div className="mt-4 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900/40">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500">
+              <table className="w-full min-w-[560px] text-left text-sm">
+                <thead className="border-b border-zinc-800 bg-zinc-900/70 text-xs uppercase tracking-wide text-zinc-500">
                   <tr>
                     <th className="px-4 py-3 font-medium">Name</th>
                     <th className="px-4 py-3 font-medium">SKU</th>
@@ -112,7 +112,7 @@ export default async function DashboardPage() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-100">
+                <tbody className="divide-y divide-zinc-800">
                   {lowStockProducts.map((product) => {
                     const threshold = resolveLowStockThreshold(
                       product.lowStockThreshold,
@@ -120,27 +120,30 @@ export default async function DashboardPage() {
                     );
 
                     return (
-                      <tr key={product.id} className="hover:bg-zinc-50">
-                        <td className="px-4 py-3 font-medium text-zinc-900">
+                      <tr
+                        key={product.id}
+                        className="hover:bg-zinc-900/70"
+                      >
+                        <td className="px-4 py-3 font-medium text-zinc-100">
                           {product.name}
                         </td>
-                        <td className="px-4 py-3 font-mono text-xs text-zinc-600">
+                        <td className="px-4 py-3 font-mono text-xs text-zinc-400">
                           {product.sku}
                         </td>
                         <td
                           className={cn(
                             "px-4 py-3 text-right font-medium tabular-nums",
                             product.quantityOnHand === 0
-                              ? "text-red-600"
-                              : "text-amber-700",
+                              ? "text-red-400"
+                              : "text-amber-400",
                           )}
                         >
                           {product.quantityOnHand}
                         </td>
-                        <td className="px-4 py-3 text-right tabular-nums text-zinc-600">
+                        <td className="px-4 py-3 text-right tabular-nums text-zinc-400">
                           {threshold}
                           {product.lowStockThreshold === null ? (
-                            <span className="ml-1 text-xs text-zinc-400">
+                            <span className="ml-1 text-xs text-zinc-500">
                               default
                             </span>
                           ) : null}
@@ -148,7 +151,7 @@ export default async function DashboardPage() {
                         <td className="px-4 py-3 text-right">
                           <Link
                             href={`/products/${product.id}/edit`}
-                            className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+                            className="text-sm font-medium text-zinc-400 hover:text-zinc-100"
                           >
                             Edit
                           </Link>

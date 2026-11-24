@@ -29,7 +29,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
           </p>
         </div>
 
-        <p className="text-xs text-zinc-600">
+        <p className="text-xs text-zinc-500">
           Built for small teams and single-store sellers.
         </p>
       </aside>

@@ -48,24 +48,24 @@ export function AdjustStockButton({
       <button
         type="button"
         onClick={openDialog}
-        className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+        className="text-sm font-medium text-zinc-400 hover:text-zinc-100"
       >
         Adjust
       </button>
 
       <dialog
         ref={dialogRef}
-        className="w-full max-w-sm rounded-lg border border-zinc-200 bg-white p-0 shadow-xl backdrop:bg-zinc-900/40"
+        className="m-auto w-full max-w-sm rounded-lg border border-zinc-700 bg-zinc-900 p-0 text-left text-zinc-100 shadow-2xl backdrop:bg-black/70"
         aria-labelledby={`adjust-title-${productId}`}
       >
         <form ref={formRef} action={formAction} className="p-6">
           <h2
             id={`adjust-title-${productId}`}
-            className="text-base font-semibold text-zinc-900"
+            className="text-base font-semibold text-zinc-50"
           >
             Adjust stock
           </h2>
-          <p className="mt-2 text-sm leading-6 text-zinc-600">
+          <p className="mt-2 text-sm leading-6 text-zinc-400">
             {productName} currently has {quantityOnHand} unit
             {quantityOnHand === 1 ? "" : "s"} on hand.
           </p>

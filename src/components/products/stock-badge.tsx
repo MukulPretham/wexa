@@ -1,5 +1,4 @@
 import { isLowStock } from "@/lib/low-stock";
-import { cn } from "@/lib/cn";
 
 type StockBadgeProps = {
   quantityOnHand: number;
@@ -14,7 +13,7 @@ export function StockBadge({
 }: StockBadgeProps) {
   if (quantityOnHand === 0) {
     return (
-      <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700">
+      <span className="inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-400">
         Out of stock
       </span>
     );
@@ -22,18 +21,14 @@ export function StockBadge({
 
   if (isLowStock(quantityOnHand, lowStockThreshold, organizationDefault)) {
     return (
-      <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">
+      <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-xs font-medium text-amber-400">
         Low stock
       </span>
     );
   }
 
   return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600",
-      )}
-    >
+    <span className="inline-flex items-center rounded-full bg-zinc-800 px-2 py-0.5 text-xs font-medium text-zinc-400">
       In stock
     </span>
   );
