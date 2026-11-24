@@ -1,7 +1,17 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
+import { getSession } from "@/lib/auth";
 
-export default function AuthLayout({ children }: { children: ReactNode }) {
+export const instant = false;
+
+export default async function AuthLayout({ children }: { children: ReactNode }) {
+  const session = await getSession();
+
+  if (session) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="flex min-h-screen flex-1">
       <aside className="hidden w-1/2 flex-col justify-between bg-zinc-900 p-12 text-white lg:flex">
