@@ -24,17 +24,29 @@ export function AppShell({
         >
           StockFlow
         </Link>
-        <nav className="flex items-center gap-1">
-          <NavLink href="/dashboard" compact>
-            Dashboard
-          </NavLink>
-          <NavLink href="/products" compact>
-            Products
-          </NavLink>
-          <NavLink href="/settings" compact>
-            Settings
-          </NavLink>
-        </nav>
+        <div className="flex items-center gap-1">
+          <nav className="flex items-center gap-1">
+            <NavLink href="/dashboard" compact>
+              Dashboard
+            </NavLink>
+            <NavLink href="/products" compact>
+              Products
+            </NavLink>
+            <NavLink href="/settings" compact>
+              Settings
+            </NavLink>
+          </nav>
+          <form action={logoutAction}>
+            <Button
+              type="submit"
+              variant="ghost"
+              size="sm"
+              className="px-2 text-xs"
+            >
+              Log out
+            </Button>
+          </form>
+        </div>
       </header>
 
       <aside className="hidden w-64 shrink-0 flex-col border-r border-zinc-200 bg-white lg:flex">
