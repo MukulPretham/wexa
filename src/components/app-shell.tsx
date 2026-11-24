@@ -16,11 +16,11 @@ export function AppShell({
   children,
 }: AppShellProps) {
   return (
-    <div className="flex min-h-screen flex-1 flex-col lg:flex-row">
-      <header className="flex h-16 items-center justify-between gap-4 border-b border-zinc-200 bg-white px-4 lg:hidden">
+    <div className="flex min-h-screen flex-1 flex-col bg-zinc-950 lg:flex-row">
+      <header className="flex h-16 items-center justify-between gap-4 border-b border-zinc-800 bg-zinc-950 px-4 lg:hidden">
         <Link
           href="/dashboard"
-          className="text-sm font-semibold tracking-tight text-zinc-900"
+          className="text-sm font-semibold tracking-tight text-zinc-100"
         >
           StockFlow
         </Link>
@@ -49,21 +49,21 @@ export function AppShell({
         </div>
       </header>
 
-      <aside className="hidden w-64 shrink-0 flex-col border-r border-zinc-200 bg-white lg:flex">
-        <div className="flex h-16 items-center border-b border-zinc-200 px-6">
+      <aside className="hidden w-64 shrink-0 flex-col border-r border-zinc-800 bg-zinc-950 lg:flex">
+        <div className="flex h-16 items-center border-b border-zinc-800 px-6">
           <Link
             href="/dashboard"
-            className="text-base font-semibold tracking-tight text-zinc-900"
+            className="text-base font-semibold tracking-tight text-zinc-100"
           >
             StockFlow
           </Link>
         </div>
 
         <div className="px-5 py-5">
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">
+          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
             Workspace
           </p>
-          <p className="mt-1 truncate text-sm font-medium text-zinc-900">
+          <p className="mt-1 truncate text-sm font-medium text-zinc-100">
             {organizationName}
           </p>
         </div>
@@ -74,7 +74,7 @@ export function AppShell({
           <NavLink href="/settings">Settings</NavLink>
         </nav>
 
-        <div className="border-t border-zinc-200 p-4">
+        <div className="border-t border-zinc-800 p-4">
           <p className="truncate px-1 text-xs text-zinc-500">{userEmail}</p>
           <form action={logoutAction} className="mt-3">
             <Button

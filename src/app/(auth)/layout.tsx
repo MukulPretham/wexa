@@ -14,7 +14,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
 
   return (
     <div className="flex min-h-screen flex-1">
-      <aside className="hidden w-1/2 flex-col justify-between bg-zinc-900 p-12 text-white lg:flex">
+      <aside className="hidden w-1/2 flex-col justify-between border-r border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-950 p-12 text-zinc-50 lg:flex">
         <Link href="/" className="text-lg font-semibold tracking-tight">
           StockFlow
         </Link>
@@ -29,7 +29,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
           </p>
         </div>
 
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-zinc-600">
           Built for small teams and single-store sellers.
         </p>
       </aside>
@@ -38,7 +38,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
         <div className="w-full max-w-sm">
           <Link
             href="/"
-            className="mb-10 inline-block text-lg font-semibold tracking-tight text-zinc-900 lg:hidden"
+            className="mb-10 inline-block text-lg font-semibold tracking-tight text-zinc-100 lg:hidden"
           >
             StockFlow
           </Link>

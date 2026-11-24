@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div>
-      <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+      <h1 className="text-2xl font-semibold tracking-tight text-zinc-50">
         Welcome back
       </h1>
-      <p className="mt-2 text-sm leading-6 text-zinc-600">
+      <p className="mt-2 text-sm leading-6 text-zinc-400">
         Sign in to manage your inventory.
       </p>
 
@@ -20,11 +20,11 @@ export default function LoginPage() {
         <LoginForm />
       </div>
 
-      <p className="mt-6 text-sm text-zinc-600">
+      <p className="mt-6 text-sm text-zinc-400">
         New to StockFlow?{" "}
         <Link
           href="/signup"
-          className="font-medium text-zinc-900 underline-offset-4 hover:underline"
+          className="font-medium text-zinc-100 underline-offset-4 hover:underline"
         >
           Create an account
         </Link>

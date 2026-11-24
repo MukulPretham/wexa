@@ -22,8 +22,8 @@ export function NavLink({ href, compact = false, children }: NavLinkProps) {
         "block rounded-md font-medium transition-colors",
         compact ? "px-2 py-1.5 text-xs" : "px-3 py-2 text-sm",
         active
-          ? "bg-zinc-900 text-white"
-          : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900",
+          ? "bg-zinc-800 text-zinc-50"
+          : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100",
       )}
     >
       {children}

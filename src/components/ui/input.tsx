@@ -8,11 +8,11 @@ export function Input({
   return (
     <input
       className={cn(
-        "h-10 w-full rounded-md border border-zinc-300 bg-white px-3 text-sm text-zinc-900",
-        "placeholder:text-zinc-400",
-        "focus:border-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-200",
-        "disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-500",
-        "aria-invalid:border-red-400 aria-invalid:focus:ring-red-100",
+        "h-10 w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 text-sm text-zinc-100",
+        "placeholder:text-zinc-500",
+        "focus:border-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-700/60",
+        "disabled:cursor-not-allowed disabled:bg-zinc-900/50 disabled:text-zinc-500",
+        "aria-invalid:border-red-500/60 aria-invalid:focus:ring-red-500/20",
         className,
       )}
       {...props}
