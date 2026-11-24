@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { requireSession } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { productSchema } from "@/lib/validation/product";
+import { productSchema, stockAdjustmentSchema } from "@/lib/validation/product";
 
 export type ProductFormState = {
   error?: string;
@@ -136,4 +136,75 @@ export async function deleteProductAction(formData: FormData): Promise<void> {
 
   revalidatePath("/products");
   redirect("/products");
+}
+
+export type StockAdjustmentState = {
+  error?: string;
+  success?: boolean;
+} | null;
+
+export async function adjustStockAction(
+  _prevState: StockAdjustmentState,
+  formData: FormData,
+): Promise<StockAdjustmentState> {
+  const session = await requireSession();
+  const productId = formData.get("id");
+
+  if (typeof productId !== "string" || productId.length === 0) {
+    return { error: "Product not found." };
+  }
+
+  const parsed = stockAdjustmentSchema.safeParse({
+    delta: formData.get("delta"),
+    note: formData.get("note"),
+  });
+
+  if (!parsed.success) {
+    return {
+      error: parsed.error.issues[0]?.message ?? "Enter a valid adjustment.",
+    };
+  }
+
+  const { delta, note } = parsed.data;
+
+  try {
+    // The gte guard makes the decrement atomic: it applies only when enough
+    // stock exists, so two concurrent adjustments cannot drive it negative.
+    const result = await prisma.product.updateMany({
+      where: {
+        id: productId,
+        organizationId: session.organization.id,
+        quantityOnHand: { gte: -delta },
+      },
+      data: {
+        quantityOnHand: { increment: delta },
+        lastAdjustmentNote: note ? note : null,
+        lastAdjustedAt: new Date(),
+      },
+    });
+
+    if (result.count === 0) {
+      const product = await prisma.product.findFirst({
+        where: {
+          id: productId,
+          organizationId: session.organization.id,
+        },
+        select: { quantityOnHand: true },
+      });
+
+      if (!product) {
+        return { error: "Product not found." };
+      }
+
+      return {
+        error: `Only ${product.quantityOnHand} unit${product.quantityOnHand === 1 ? "" : "s"} available.`,
+      };
+    }
+  } catch {
+    return { error: "Could not adjust stock. Please try again." };
+  }
+
+  revalidatePath("/products");
+  revalidatePath("/dashboard");
+  return { success: true };
 }

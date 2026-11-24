@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdjustStockButton } from "@/components/products/adjust-stock-button";
 import { DeleteProductButton } from "@/components/products/delete-product-button";
 import { StockBadge } from "@/components/products/stock-badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -157,6 +158,11 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                         >
                           Edit
                         </Link>
+                        <AdjustStockButton
+                          productId={product.id}
+                          productName={product.name}
+                          quantityOnHand={product.quantityOnHand}
+                        />
                         <DeleteProductButton
                           productId={product.id}
                           productName={product.name}

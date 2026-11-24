@@ -55,3 +55,17 @@ export const productSchema = z.object({
 });
 
 export type ProductInput = z.infer<typeof productSchema>;
+
+export const stockAdjustmentSchema = z.object({
+  delta: z.coerce
+    .number()
+    .int("Adjustment must be a whole number.")
+    .refine((value) => value !== 0, "Enter a non-zero adjustment."),
+  note: z
+    .string()
+    .trim()
+    .max(200, "Note must be 200 characters or fewer.")
+    .optional(),
+});
+
+export type StockAdjustmentInput = z.infer<typeof stockAdjustmentSchema>;
