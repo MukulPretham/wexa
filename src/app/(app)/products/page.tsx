@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DeleteProductButton } from "@/components/products/delete-product-button";
 import { StockBadge } from "@/components/products/stock-badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -149,12 +150,18 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                       {formatCurrency(product.sellingPrice?.toString())}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <Link
-                        href={`/products/${product.id}/edit`}
-                        className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
-                      >
-                        Edit
-                      </Link>
+                      <div className="flex items-center justify-end gap-3">
+                        <Link
+                          href={`/products/${product.id}/edit`}
+                          className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+                        >
+                          Edit
+                        </Link>
+                        <DeleteProductButton
+                          productId={product.id}
+                          productName={product.name}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}

@@ -120,3 +120,20 @@ export async function updateProductAction(
   revalidatePath(`/products/${productId}/edit`);
   redirect("/products");
 }
+
+export async function deleteProductAction(formData: FormData): Promise<void> {
+  const session = await requireSession();
+  const productId = formData.get("id");
+
+  if (typeof productId === "string" && productId.length > 0) {
+    await prisma.product.deleteMany({
+      where: {
+        id: productId,
+        organizationId: session.organization.id,
+      },
+    });
+  }
+
+  revalidatePath("/products");
+  redirect("/products");
+}
