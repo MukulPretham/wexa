@@ -41,6 +41,7 @@ export const productSchema = z.object({
   sku: z
     .string()
     .trim()
+    .toUpperCase()
     .min(1, "SKU is required.")
     .max(64, "SKU must be 64 characters or fewer."),
   description: z
