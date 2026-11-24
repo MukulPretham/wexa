@@ -114,6 +114,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   <th className="px-4 py-3 text-right font-medium">
                     Selling price
                   </th>
+                  <th className="px-4 py-3 text-right font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100">
@@ -146,6 +147,14 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     </td>
                     <td className="px-4 py-3 text-right tabular-nums text-zinc-900">
                       {formatCurrency(product.sellingPrice?.toString())}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <Link
+                        href={`/products/${product.id}/edit`}
+                        className="text-sm font-medium text-zinc-600 hover:text-zinc-900"
+                      >
+                        Edit
+                      </Link>
                     </td>
                   </tr>
                 ))}

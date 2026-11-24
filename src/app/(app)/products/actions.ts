@@ -21,13 +21,8 @@ function hasPrismaCode(error: unknown, code: string): boolean {
   );
 }
 
-export async function createProductAction(
-  _prevState: ProductFormState,
-  formData: FormData,
-): Promise<ProductFormState> {
-  const session = await requireSession();
-
-  const parsed = productSchema.safeParse({
+function parseProductForm(formData: FormData) {
+  return productSchema.safeParse({
     name: formData.get("name"),
     sku: formData.get("sku"),
     description: formData.get("description"),
@@ -36,6 +31,14 @@ export async function createProductAction(
     sellingPrice: formData.get("sellingPrice"),
     lowStockThreshold: formData.get("lowStockThreshold"),
   });
+}
+
+export async function createProductAction(
+  _prevState: ProductFormState,
+  formData: FormData,
+): Promise<ProductFormState> {
+  const session = await requireSession();
+  const parsed = parseProductForm(formData);
 
   if (!parsed.success) {
     return { fieldErrors: z.flattenError(parsed.error).fieldErrors };
@@ -64,5 +67,56 @@ export async function createProductAction(
   }
 
   revalidatePath("/products");
+  redirect("/products");
+}
+
+export async function updateProductAction(
+  _prevState: ProductFormState,
+  formData: FormData,
+): Promise<ProductFormState> {
+  const session = await requireSession();
+  const productId = formData.get("id");
+
+  if (typeof productId !== "string" || productId.length === 0) {
+    return { error: "Product not found." };
+  }
+
+  const parsed = parseProductForm(formData);
+
+  if (!parsed.success) {
+    return { fieldErrors: z.flattenError(parsed.error).fieldErrors };
+  }
+
+  const { description, ...values } = parsed.data;
+
+  try {
+    const result = await prisma.product.updateMany({
+      where: {
+        id: productId,
+        organizationId: session.organization.id,
+      },
+      data: {
+        ...values,
+        description: description ? description : null,
+      },
+    });
+
+    if (result.count === 0) {
+      return { error: "Product not found." };
+    }
+  } catch (error) {
+    if (hasPrismaCode(error, "P2002")) {
+      return {
+        fieldErrors: {
+          sku: ["A product with this SKU already exists in your organization."],
+        },
+      };
+    }
+
+    return { error: "Could not update the product. Please try again." };
+  }
+
+  revalidatePath("/products");
+  revalidatePath(`/products/${productId}/edit`);
   redirect("/products");
 }
