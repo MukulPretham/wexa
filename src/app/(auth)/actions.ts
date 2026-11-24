@@ -3,13 +3,23 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
-import { createUserSession, hashPassword } from "@/lib/auth";
-import { signupSchema } from "@/lib/validation/auth";
+import {
+  createUserSession,
+  destroySession,
+  hashPassword,
+  verifyPassword,
+} from "@/lib/auth";
+import { loginSchema, signupSchema } from "@/lib/validation/auth";
 
 export type AuthFormState = {
   error?: string;
   fieldErrors?: Record<string, string[] | undefined>;
 } | null;
+
+// Compared against when the email does not exist, so a failed login takes a
+// similar amount of time whether or not the account is registered.
+const DUMMY_PASSWORD_HASH =
+  "$2b$10$LDQsA9salne.iIAeRH5D1.AHlUcAWvyq1Tjne0l3.WS/OrnN7YyYi";
 
 export async function signupAction(
   _prevState: AuthFormState,
@@ -68,4 +78,40 @@ export async function signupAction(
 
   await createUserSession(userId);
   redirect("/dashboard");
+}
+
+export async function loginAction(
+  _prevState: AuthFormState,
+  formData: FormData,
+): Promise<AuthFormState> {
+  const parsed = loginSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  if (!parsed.success) {
+    return { fieldErrors: z.flattenError(parsed.error).fieldErrors };
+  }
+
+  const { email, password } = parsed.data;
+  const user = await prisma.user.findUnique({ where: { email } });
+
+  if (!user) {
+    await verifyPassword(password, DUMMY_PASSWORD_HASH);
+    return { error: "Invalid email or password." };
+  }
+
+  const passwordMatches = await verifyPassword(password, user.passwordHash);
+
+  if (!passwordMatches) {
+    return { error: "Invalid email or password." };
+  }
+
+  await createUserSession(user.id);
+  redirect("/dashboard");
+}
+
+export async function logoutAction(): Promise<void> {
+  await destroySession();
+  redirect("/login");
 }
