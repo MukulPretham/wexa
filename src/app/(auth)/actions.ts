@@ -107,6 +107,14 @@ export async function loginAction(
     return { error: "Invalid email or password." };
   }
 
+  // Clear out expired sessions for this account so they do not accumulate.
+  await prisma.session.deleteMany({
+    where: {
+      userId: user.id,
+      expiresAt: { lte: new Date() },
+    },
+  });
+
   await createUserSession(user.id);
   redirect("/dashboard");
 }
