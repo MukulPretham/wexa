@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { StockBadge } from "@/components/products/stock-badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { requireSession } from "@/lib/auth";
 import { formatCurrency } from "@/lib/format";
@@ -53,6 +53,9 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
               : `${totalProducts} product${totalProducts === 1 ? "" : "s"} in your catalog.`}
           </p>
         </div>
+        <Link href="/products/new" className={buttonVariants()}>
+          Add product
+        </Link>
       </div>
 
       <form action="/products" method="get" className="mt-6 flex gap-2">
@@ -82,6 +85,12 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           <p className="mt-1 text-sm text-zinc-500">
             Products you add will show up here with their stock levels.
           </p>
+          <Link
+            href="/products/new"
+            className={buttonVariants({ className: "mt-5" })}
+          >
+            Add your first product
+          </Link>
         </div>
       ) : products.length === 0 ? (
         <div className="mt-8 rounded-lg border border-dashed border-zinc-300 bg-white px-6 py-16 text-center">
